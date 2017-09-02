@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Collatz Explorer</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="section">
+            <div class="section-part">
+                <a href="/"><h1>Collatz Explorer</h1></a>
+            </div>
+        </div>
+        <div class="section">
+            <input type="text" class="goto-input" placeholder="Navigate to number">
+        </div>
+        <div class="section">
+            <div class="section-part">
+                <h2>Current number</h2>
+                <p>{{.Current}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="section-part">
+                <h2>Steps to 1</h2>
+                <p>{{.Steps}}</p>
+            </div>
+            <div class="section-part">
+                <h2>Maximum</h2>
+                <p><a href="/{{.Maximum}}">{{.Maximum}}</a></p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="section-part">
+                <h2>Next step</h2>
+                {{if not .AtOne}}
+                <p><a href="/{{.NextStep}}">{{.NextStep}}</a></p>
+                {{else}}
+                <p>You have reached the end!</p>
+                {{end}}
+            </div>
+        </div>
+        <div class="section">
+            <div class="section-part">
+                <h2>Can be reached from</h2>
+                {{if .ReachDown}}
+                <p><a href="/{{.ReachDown}}">{{.ReachDown}}</a> and <a href="/{{.ReachUp}}">{{.ReachUp}}</a></p>
+                {{else}}
+                <p><a href="/{{.ReachUp}}">{{.ReachUp}}</a></p>
+                {{end}}
+            </div>
+        </div>
+        <div class="section">
+            <div class="section-part">
+                <h3>Created by <a href="https://github.com/msvisser">Michiel Visser</a></h3>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="static/script.js"></script>
+</body>
+</html>
