@@ -1,36 +1,36 @@
 package main
 
 import (
-    "math/big"
-    "net/http"
-    "log"
 	"html/template"
+	"log"
+	"math/big"
+	"net/http"
 )
 
 var big_one = big.NewInt(1)
 var big_three = big.NewInt(3)
 
 func collatz_step(a *big.Int) {
-    if a.Bit(0) == 0 {
-        a.Rsh(a, 1)
-    } else {
-        a.Mul(a, big_three)
-        a.Add(a, big_one)
-    }
+	if a.Bit(0) == 0 {
+		a.Rsh(a, 1)
+	} else {
+		a.Mul(a, big_three)
+		a.Add(a, big_one)
+	}
 }
 
 func collatz_step_count_maximum(next_step, max, counter *big.Int) {
-    n := big.NewInt(0)
-    n.Set(next_step)
-    collatz_step(next_step)
-    max.Set(n)
-    for n.Cmp(big_one) > 0 {
-        collatz_step(n)
-        if n.Cmp(max) > 0 {
-            max.Set(n)
-        }
-        counter.Add(counter, big_one)
-    }
+	n := big.NewInt(0)
+	n.Set(next_step)
+	collatz_step(next_step)
+	max.Set(n)
+	for n.Cmp(big_one) > 0 {
+		collatz_step(n)
+		if n.Cmp(max) > 0 {
+			max.Set(n)
+		}
+		counter.Add(counter, big_one)
+	}
 }
 
 var tmpl *template.Template
@@ -42,19 +42,19 @@ func main() {
 		log.Fatal(err)
 	}
 
-    http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 	http.HandleFunc("/", page_handler)
-    log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 type PageData struct {
-	Current *big.Int
-	Steps *big.Int
-	Maximum *big.Int
-	NextStep *big.Int
+	Current   *big.Int
+	Steps     *big.Int
+	Maximum   *big.Int
+	NextStep  *big.Int
 	ReachDown *big.Int
-	ReachUp *big.Int
-	AtOne bool
+	ReachUp   *big.Int
+	AtOne     bool
 }
 
 func page_handler(w http.ResponseWriter, r *http.Request) {
@@ -86,7 +86,7 @@ func page_handler(w http.ResponseWriter, r *http.Request) {
 	temp_mod := big.NewInt(0)
 	temp_div.Sub(number, big_one)
 	temp_div.DivMod(temp_div, big_three, temp_mod)
-	if temp_mod.Cmp(big.NewInt(0)) == 0 && temp_div.Cmp(big_one) > 0{
+	if temp_mod.Cmp(big.NewInt(0)) == 0 && temp_div.Cmp(big_one) > 0 {
 		data.ReachDown = temp_div
 	}
 	data.ReachUp = big.NewInt(0).Lsh(number, 1)
