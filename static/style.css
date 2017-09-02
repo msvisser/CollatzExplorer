@@ -78,11 +78,11 @@ a {
     border-bottom: 1px solid #cccccc;
     display: flex; }
     .container .section:first-of-type {
-      background: #141E30;
+      background: #1488CC;
       background: linear-gradient(to right, #1488CC, #2B32B2);
       border-radius: 10px 10px 0 0; }
     .container .section:last-of-type {
-      background: #141E30;
+      background: #1488CC;
       background: linear-gradient(to right, #1488CC, #2B32B2);
       border-bottom: none;
       border-radius: 0 0 10px 10px; }

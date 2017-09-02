@@ -51,12 +51,12 @@ a {
         display: flex;
 
         &:first-of-type {
-            background: #141E30;
+            background: #1488CC;
             background: linear-gradient(to right, #1488CC, #2B32B2);
             border-radius: $container-border-radius $container-border-radius 0 0;
         }
         &:last-of-type {
-            background: #141E30;
+            background: #1488CC;
             background: linear-gradient(to right, #1488CC, #2B32B2);
             border-bottom: none;
             border-radius: 0 0 $container-border-radius $container-border-radius;
