@@ -73,7 +73,7 @@ a {
   text-align: center;
   max-width: 400px;
   width: 100%;
-  margin: 0 20px; }
+  margin: 20px; }
   .container .section {
     border-bottom: 1px solid #cccccc;
     display: flex; }
