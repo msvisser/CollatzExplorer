@@ -123,11 +123,8 @@ a {
                 margin-bottom: 8px;
             }
             p {
-                color: $text-color-secondary;
-
-                a {
-                    word-break: break-all;
-                }
+                color: $text-color-secondary;                
+                word-break: break-all;
             }
         }
     }
