@@ -7,6 +7,7 @@ import (
 	"net/http"
 )
 
+var big_zero = big.NewInt(0)
 var big_one = big.NewInt(1)
 var big_three = big.NewInt(3)
 
@@ -64,7 +65,7 @@ func page_handler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		number = big.NewInt(0)
 		_, success := number.SetString(r.URL.Path[1:], 10)
-		if !success {
+		if !success || number.Cmp(big_zero) <= 0 {
 			w.WriteHeader(404)
 			w.Write([]byte("404 page not found"))
 			return
@@ -86,7 +87,7 @@ func page_handler(w http.ResponseWriter, r *http.Request) {
 	temp_mod := big.NewInt(0)
 	temp_div.Sub(number, big_one)
 	temp_div.DivMod(temp_div, big_three, temp_mod)
-	if temp_mod.Cmp(big.NewInt(0)) == 0 && temp_div.Cmp(big_one) > 0 {
+	if temp_mod.Cmp(big_zero) == 0 && temp_div.Cmp(big_one) > 0 {
 		data.ReachDown = temp_div
 	}
 	data.ReachUp = big.NewInt(0).Lsh(number, 1)
