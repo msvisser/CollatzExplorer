@@ -1,8 +1,0 @@
-# Ignore docker base files
-Dockerfile
-.dockerignore
-
-# Ignore git repository files
-.git
-.gitignore
-.gitattributes

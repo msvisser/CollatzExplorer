@@ -5,6 +5,7 @@ import (
 	"log"
 	"math/big"
 	"net/http"
+	"os"
 )
 
 var big_zero = big.NewInt(0)
@@ -36,16 +37,24 @@ func collatz_step_count_maximum(next_step, max, counter *big.Int) {
 
 var tmpl *template.Template
 
+func getEnv(key, fallback string) string {
+    if value, ok := os.LookupEnv(key); ok {
+        return value
+    }
+    return fallback
+}
+
 func main() {
 	var err error
-	tmpl, err = template.New("").ParseGlob("./templates/*.tmpl")
+	tmpl_bytes, _ := templatesIndexTmplBytes()
+	tmpl, err = template.New("index.tmpl").Parse(string(tmpl_bytes))
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+	http.Handle("/static/", http.FileServer(AssetFile()))
 	http.HandleFunc("/", page_handler)
-	log.Fatal(http.ListenAndServe(":80", nil))
+	log.Fatal(http.ListenAndServe(getEnv("BIND_ADDR", "127.0.0.1:8000"), nil))
 }
 
 type PageData struct {
