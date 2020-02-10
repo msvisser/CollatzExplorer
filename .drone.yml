@@ -13,7 +13,7 @@ steps:
     - apk --no-cache add git
     - go get -u github.com/go-bindata/go-bindata/...
     - go get -d ./...
-    - go-bindata -nomemcopy -fs -prefix "./static" $$(find ./static -type f -name '*.css' -or -name '*.js') $$(find ./templates -type f)
+    - go-bindata -nomemcopy -fs $$(find ./static -type f -name '*.css' -or -name '*.js') $$(find ./templates -type f)
     - CGO_ENABLED=0 go build -a -tags netgo -ldflags '-w' -o collatz collatz.go bindata.go
 
 - name: docker
