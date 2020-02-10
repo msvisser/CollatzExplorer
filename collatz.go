@@ -54,7 +54,7 @@ func main() {
 
 	http.Handle("/static/", http.FileServer(AssetFile()))
 	http.HandleFunc("/", page_handler)
-	log.Fatal(http.ListenAndServe(getEnv("BIND_ADDR", "127.0.0.1:8000"), nil))
+	log.Fatal(http.ListenAndServe(getEnv("BIND_ADDR", "0.0.0.0:8000"), nil))
 }
 
 type PageData struct {
