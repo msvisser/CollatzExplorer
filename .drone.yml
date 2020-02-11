@@ -29,5 +29,3 @@ steps:
     event:
     - tag
 
-image_pull_secrets:
-- dockerconfig
